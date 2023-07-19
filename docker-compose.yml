@@ -1,0 +1,33 @@
+version: "5"
+services:
+  mysqlserverdb:
+    image: mysql
+    #container_name: "mysqlserverdb"
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_DATABASE=serverdb
+      - MYSQL_ROOT_PASSWORD=99NoK
+    volumes:
+      - ./db/data:/var/lib/mysql
+    #restart: always
+  servermanagerapp:
+    image: servermanagerapp
+    #container_name: "servermanagerapp"
+    restart: always
+    build: .
+    ports:
+      - 9000-9100:8080
+    environment:
+      - MYSQL_HOST=mysqlserverdb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=99NoK
+      - MYSQL_PORT=3306
+    depends_on:
+      - mysqlserverdb
+
+#  servermanagerapp:
+#    build:
+#      dockerfile: Dockerfile
+#    links:
+#      - serverdb
