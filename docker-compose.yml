@@ -25,9 +25,3 @@ services:
       - MYSQL_PORT=3306
     depends_on:
       - mysqlserverdb
-
-#  servermanagerapp:
-#    build:
-#      dockerfile: Dockerfile
-#    links:
-#      - serverdb
